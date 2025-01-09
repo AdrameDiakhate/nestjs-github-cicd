@@ -71,7 +71,8 @@
       "json",
       "lcov",
       "text",
-      "info"
+      "info",
+      "coverage-summary.json"
     ],
     "testEnvironment": "node"
   }

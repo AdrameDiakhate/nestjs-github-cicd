@@ -32,14 +32,20 @@ jobs:
 
       - name: Run Unit Test and collect coverage
         run: npm run test:cov
+      - name: Compare coverage
+        run: |
+            COVERAGE=$(cat coverage/summary.json | jq .total.lines.pct)
+            echo "Coverage: $COVERAGE%"
+            if (( $(echo "$COVERAGE < 80" | bc -l) )); then
+            echo "Coverage is below 80%. Aborting deployment."
+            exit 1
+            fi
 
       - name: Check coverage threshold
         uses: ArtiomTr/jest-coverage-report-action@v2.3.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           threshold: 80
-          coverage-file: ../../report.json,
-          base-coverage-file: ../../report.json
       - name: Debug coverage directory
         run: ls -R coverage
      

@@ -38,6 +38,8 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           threshold: 80
+          coverage-file: ../../report.json,
+          base-coverage-file: ../../report.json
       - name: Debug coverage directory
         run: ls -R coverage
      
